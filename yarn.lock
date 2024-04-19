@@ -17,6 +17,7 @@
     "@ethersproject/properties" "^5.7.0"
     "@ethersproject/strings" "^5.7.0"
 
+
 "@ethersproject/abstract-provider@^5.7.0", "@ethersproject/abstract-provider@5.7.0":
   version "5.7.0"
   resolved "https://registry.npmjs.org/@ethersproject/abstract-provider/-/abstract-provider-5.7.0.tgz"
