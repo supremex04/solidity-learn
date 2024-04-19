@@ -12,7 +12,22 @@ async function main(){
     const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
     console.log("Deploying, please wait...")
     const contract = await contractFactory.deploy();
-    console.log(contract.deployTransaction)
+    // wait one block for transaction to finish
+    await contract.deployTransaction.wait(1);
+    // get number
+    // as retrieve is a view function, contract call will not cost any gas
+    // view and pure functions if called outside of contract function call
+    // will not cost any gas
+    const currentFavouriteNumber = await contract.retrieve();
+    // it will return a bignumber, which is a hex and not redable as solidity doesnot use decimal  places
+    console.log(`Current Favourite Number: ${currentFavouriteNumber.toString()}`);
+    // you get tx response after deploying
+    // updating favouriteNumber
+    const transactionResponse =  await contract.store("7")
+    // you get tx receipt after certain block confirmation
+    const transactionReceipt = await transactionResponse.wait(1);
+    const updatedFavouriteNumber = await contract.retrieve();
+    console.log(`Updated Favourite Number: ${updatedFavouriteNumber}`)
 }
 main()
     .then(() => process.exit(0))
