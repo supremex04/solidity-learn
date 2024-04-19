@@ -11,9 +11,11 @@ async function main(){
     const binary = fs.readFileSync("./SimpleStorage_sol_SimpleStorage.bin", "utf-8");
     const contractFactory = new ethers.ContractFactory(abi, binary, wallet);
     console.log("Deploying, please wait...")
+    // deploying contract
     const contract = await contractFactory.deploy();
-    // wait one block for transaction to finish
+    // wait one block for transaction to be confirmed
     await contract.deployTransaction.wait(1);
+    console.log(`Contract Address: ${contract.address}`)
     // get number
     // as retrieve is a view function, contract call will not cost any gas
     // view and pure functions if called outside of contract function call
